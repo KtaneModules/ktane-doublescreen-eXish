@@ -131,8 +131,6 @@ public class DoubleScreenScript : MonoBehaviour {
                         words[j] = words[j].Replace("absent", "present");
                         words[j + 1] = words[j + 1].Replace("from", "on");
                     }
-                    else if (words[j].Equals("absent\nfrom"))
-                        words[j] = words[j].Replace("absent\nfrom", "present\non");
                     else if (words[j].EndsWith("present"))
                     {
                         words[j] = words[j].Replace("present", "absent");
@@ -158,8 +156,6 @@ public class DoubleScreenScript : MonoBehaviour {
                         words[j] = words[j].Replace("absent", "present");
                         words[j + 1] = words[j + 1].Replace("from", "on");
                     }
-                    else if (words[j].Equals("absent\nfrom"))
-                        words[j] = words[j].Replace("absent\nfrom", "present\non");
                     else if (words[j].EndsWith("present"))
                     {
                         words[j] = words[j].Replace("present", "absent");
@@ -235,13 +231,23 @@ public class DoubleScreenScript : MonoBehaviour {
             while (bomb.GetModuleNames().Contains(mod))
                 mod = modules.PickRandom().Name;
             if (mod.Length > 16)
-                mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
+            {
+                if (mod.Substring(0, 16).Contains(' '))
+                    mod = mod.Substring(0, mod.LastIndexOf(' ')) + "\n" + mod.Substring(mod.LastIndexOf(' ') + 1, mod.Length - mod.LastIndexOf(' ') - 1);
+                else
+                    mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
+            }
             truths.Add(string.Format("There is {1}\n{0}\nabsent from this\nbomb.", mod, "AEIOUaeiou".Contains(mod[0]) ? "an" : "a"));
             mod = modules.PickRandom().Name;
             while (bomb.GetModuleNames().Contains(mod))
                 mod = modules.PickRandom().Name;
             if (mod.Length > 16)
-                mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
+            {
+                if (mod.Substring(0, 16).Contains(' '))
+                    mod = mod.Substring(0, mod.LastIndexOf(' ')) + "\n" + mod.Substring(mod.LastIndexOf(' ') + 1, mod.Length - mod.LastIndexOf(' ') - 1);
+                else
+                    mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
+            }
             lies.Add(string.Format("There is {1}\n{0}\npresent on this\nbomb.", mod, "AEIOUaeiou".Contains(mod[0]) ? "an" : "a"));
         }
         if (bomb.GetTwoFactorCounts() > 0)
@@ -257,11 +263,11 @@ public class DoubleScreenScript : MonoBehaviour {
         if (bomb.GetColoredIndicators().Count() > 0)
         {
             truths.Add("There is a\ncolored\nindicator\npresent on this\nbomb.");
-            lies.Add("There is a\ncolored\nindicator absent\nfrom this bomb.");
+            lies.Add("There is a\ncolored\nindicator\nabsent from this\nbomb.");
         }
         else
         {
-            truths.Add("There is a\ncolored\nindicator absent\nfrom this bomb.");
+            truths.Add("There is a\ncolored\nindicator\nabsent from this\nbomb.");
             lies.Add("There is a\ncolored\nindicator\npresent on this\nbomb.");
         }
         string[] edgework = new string[] { "batteries", "battery holders", "indicators", "ports", "port plates" };
