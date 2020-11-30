@@ -126,12 +126,18 @@ public class DoubleScreenScript : MonoBehaviour {
                         words[j] = words[j].Replace("minus", "plus");
                     else if (words[j].EndsWith("plus"))
                         words[j] = words[j].Replace("plus", "minus");
-                    else if (words[j].Equals("absent from"))
-                        words[j] = words[j].Replace("absent from", "present on");
+                    else if (words[j].EndsWith("absent"))
+                    {
+                        words[j] = words[j].Replace("absent", "present");
+                        words[j + 1] = words[j + 1].Replace("from", "on");
+                    }
                     else if (words[j].Equals("absent\nfrom"))
                         words[j] = words[j].Replace("absent\nfrom", "present\non");
-                    else if (words[j].Equals("present on"))
-                        words[j] = words[j].Replace("present on", "absent from");
+                    else if (words[j].EndsWith("present"))
+                    {
+                        words[j] = words[j].Replace("present", "absent");
+                        words[j + 1] = words[j + 1].Replace("on", "from");
+                    }
                     else if (words[j].EndsWith("needy"))
                         words[j] = words[j].Replace("needy", "regular");
                     else if (words[j].EndsWith("regular"))
@@ -147,12 +153,18 @@ public class DoubleScreenScript : MonoBehaviour {
                         words[j] = words[j].Replace("and", "or");
                     else if (words[j].Equals("or"))
                         words[j] = words[j].Replace("or", "and");
-                    else if (words[j].Equals("absent from"))
-                        words[j] = words[j].Replace("absent from", "present on");
+                    else if (words[j].EndsWith("absent"))
+                    {
+                        words[j] = words[j].Replace("absent", "present");
+                        words[j + 1] = words[j + 1].Replace("from", "on");
+                    }
                     else if (words[j].Equals("absent\nfrom"))
                         words[j] = words[j].Replace("absent\nfrom", "present\non");
-                    else if (words[j].Equals("present on"))
-                        words[j] = words[j].Replace("present on", "absent from");
+                    else if (words[j].EndsWith("present"))
+                    {
+                        words[j] = words[j].Replace("present", "absent");
+                        words[j + 1] = words[j + 1].Replace("on", "from");
+                    }
                 }
                 else if (colors[i] == 2)
                 {
