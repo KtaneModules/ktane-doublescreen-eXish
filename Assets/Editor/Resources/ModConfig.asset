@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
+  m_Name: ModConfig
+  m_EditorClassIdentifier: 
+  id: doubleScreenModule
+  title: Double Screen
+  author: eXish
+  description: 'Press the screen that shows something true about the bomb, after swapping
+    out sets of words based on the screen''s color.
+
+
+    HTML: https://ktane.timwi.de/HTML/Double%20Screen.html
+
+    PDF: https://ktane.timwi.de/PDF/Double%20Screen.pdf
+
+
+    Double Screen (doubleScreenModule) v1.0.0
+
+    Module and Concept by eXish
+
+    Some assets taken from Double Expert
+
+    Some code taken from Repo Selector
+
+    Twitch Plays supported'
+  version: 1.0.0
+  outputFolder: build
+  previewImage: {fileID: 2800000, guid: 662d8318b861e084ea13042db4f6b177, type: 3}
