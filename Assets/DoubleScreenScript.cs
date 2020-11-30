@@ -59,6 +59,7 @@ public class DoubleScreenScript : MonoBehaviour {
     void Start () {
         initTime = (int)bomb.GetTime();
         stageCount = UnityEngine.Random.Range(2, 4);
+        Debug.LogFormat("[Double Screen #{0}] This module will require {1} presses to solve", moduleId, stageCount);
         texts[0].text = "";
         texts[1].text = "";
         screens[0].SetActive(false);
@@ -80,10 +81,15 @@ public class DoubleScreenScript : MonoBehaviour {
             audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, pressed.transform);
             if ((firstScreenCorrect && pressed == buttons[0]) || (!firstScreenCorrect && pressed == buttons[1]))
             {
+                if ((stageCount == 3 && stage != 2) || (stageCount == 2 && stage != 1))
+                    Debug.LogFormat("[Double Screen #{0}] Pressing the {1} screen was correct, generating new screens...", moduleId, pressed == buttons[0] ? "top" : "bottom");
+                else
+                    Debug.LogFormat("[Double Screen #{0}] Pressing the {1} screen was correct", moduleId, pressed == buttons[0] ? "top" : "bottom");
                 stage++;
             }
             else
             {
+                Debug.LogFormat("[Double Screen #{0}] Pressing the {1} screen was incorrect, Strike! Resetting the module...", moduleId, pressed == buttons[0] ? "top" : "bottom");
                 stage = 0;
                 GetComponent<KMBombModule>().HandleStrike();
             }
@@ -180,7 +186,9 @@ public class DoubleScreenScript : MonoBehaviour {
                 }
             }
             displayed[i] = words.Join(" ");
+            Debug.LogFormat("[Double Screen #{0}] The {1} screen is {2} and it's showing \"{3}\"", moduleId, i == 0 ? "top" : "bottom", allcolors[colors[i]].name.Replace("Screen", ""), displayed[i].Replace("\n", " "));
         }
+        Debug.LogFormat("[Double Screen #{0}] The correct screen to press is the {1} screen", moduleId, firstScreenCorrect ? "top" : "bottom");
     }
 
     private void TruthRules()
@@ -384,6 +392,7 @@ public class DoubleScreenScript : MonoBehaviour {
         screens[1].SetActive(false);
         if (stage == stageCount)
         {
+            Debug.LogFormat("[Double Screen #{0}] Module disarmed", moduleId);
             moduleSolved = true;
             audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, transform);
             GetComponent<KMBombModule>().HandlePass();
@@ -430,9 +439,17 @@ public class DoubleScreenScript : MonoBehaviour {
                 if (animating && (parameters[1].EqualsIgnoreCase("t") || parameters[1].EqualsIgnoreCase("top") || parameters[1].EqualsIgnoreCase("b") || parameters[1].EqualsIgnoreCase("bottom")))
                     yield return "sendtochaterror Cannot press a screen while the module is animating!";
                 else if (parameters[1].EqualsIgnoreCase("t") || parameters[1].EqualsIgnoreCase("top"))
+                {
+                    if (firstScreenCorrect && stageCount == 3 ? stage == 2 : stage == 1)
+                        yield return "solve";
                     buttons[0].OnInteract();
+                }
                 else if (parameters[1].EqualsIgnoreCase("b") || parameters[1].EqualsIgnoreCase("bottom"))
+                {
+                    if (!firstScreenCorrect && stageCount == 3 ? stage == 2 : stage == 1)
+                        yield return "solve";
                     buttons[1].OnInteract();
+                }
                 else
                     yield return "sendtochaterror!f The specified screen to press '" + parameters[1] + "' is invalid!";
             }
