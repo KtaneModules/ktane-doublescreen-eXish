@@ -222,8 +222,22 @@ public class DoubleScreenScript : MonoBehaviour {
         lies.Add(string.Format("This bomb\nstarted with\nmore than {0}\nminutes.", UnityEngine.Random.Range(initTime / 60 + 1, initTime / 60 + 6)));
         lies.Add(string.Format("This bomb\nstarted with\nless than {0}\nminutes.", UnityEngine.Random.Range(initTime / 60 - 5, initTime / 60)));
         string mod = bomb.GetModuleNames().PickRandom();
+        if (mod.Length > 16)
+        {
+            if (mod.Substring(0, 16).Contains(' '))
+                mod = mod.Substring(0, mod.LastIndexOf(' ')) + "\n" + mod.Substring(mod.LastIndexOf(' ') + 1, mod.Length - mod.LastIndexOf(' ') - 1);
+            else
+                mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
+        }
         truths.Add(string.Format("There is {1}\n{0}\npresent on this\nbomb.", mod, "AEIOUaeiou".Contains(mod[0]) ? "an" : "a"));
         mod = bomb.GetModuleNames().PickRandom();
+        if (mod.Length > 16)
+        {
+            if (mod.Substring(0, 16).Contains(' '))
+                mod = mod.Substring(0, mod.LastIndexOf(' ')) + "\n" + mod.Substring(mod.LastIndexOf(' ') + 1, mod.Length - mod.LastIndexOf(' ') - 1);
+            else
+                mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
+        }
         lies.Add(string.Format("There is {1}\n{0}\nabsent from this\nbomb.", mod, "AEIOUaeiou".Contains(mod[0]) ? "an" : "a"));
         if (fetch.error == null && fetch.isDone)
         {
