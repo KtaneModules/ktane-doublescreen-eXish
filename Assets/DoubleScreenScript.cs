@@ -143,9 +143,9 @@ public class DoubleScreenScript : MonoBehaviour {
                 }
                 else if (colors[i] == 1)
                 {
-                    if (words[j].Equals("less"))
+                    if (words[j].EndsWith("less"))
                         words[j] = words[j].Replace("less", "more");
-                    else if (words[j].Equals("more"))
+                    else if (words[j].EndsWith("more"))
                         words[j] = words[j].Replace("more", "less");
                     else if (words[j].Equals("and"))
                         words[j] = words[j].Replace("and", "or");
@@ -187,9 +187,9 @@ public class DoubleScreenScript : MonoBehaviour {
                         words[j] = words[j].Replace("needy", "regular");
                     else if (words[j].EndsWith("regular"))
                         words[j] = words[j].Replace("regular", "needy");
-                    else if (words[j].Equals("less"))
+                    else if (words[j].EndsWith("less"))
                         words[j] = words[j].Replace("less", "more");
-                    else if (words[j].Equals("more"))
+                    else if (words[j].EndsWith("more"))
                         words[j] = words[j].Replace("more", "less");
                 }
             }
@@ -331,16 +331,16 @@ public class DoubleScreenScript : MonoBehaviour {
             serChars[0] = bomb.GetSerialNumber().PickRandom();
             serChars[1] = bomb.GetSerialNumber().PickRandom();
         }
-        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", serChars[0], serChars[1], "AEIOU".Contains(serChars[0]) ? "an" : "a"));
-        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", serChars[0], serChars[1], "AEIOU".Contains(serChars[0]) ? "an" : "a"));
+        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", serChars[0], serChars[1], "AEIO".Contains(serChars[0]) ? "an" : "a"));
+        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", serChars[0], serChars[1], "AEIO".Contains(serChars[0]) ? "an" : "a"));
         char not = alpha.PickRandom();
         while (not == serChars[0] || bomb.GetSerialNumber().Contains(not))
             not = alpha.PickRandom();
-        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", not, serChars[1], "AEIOU".Contains(not) ? "an" : "a"));
+        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", not, serChars[1], "AEIO".Contains(not) ? "an" : "a"));
         not = alpha.PickRandom();
         while (not == serChars[1] || bomb.GetSerialNumber().Contains(not))
             not = alpha.PickRandom();
-        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", serChars[0], not, "AEIOU".Contains(serChars[0]) ? "an" : "a"));
+        truths.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", serChars[0], not, "AEIO".Contains(serChars[0]) ? "an" : "a"));
         char[] nots = new char[2];
         nots[0] = alpha.PickRandom();
         nots[1] = alpha.PickRandom();
@@ -349,14 +349,14 @@ public class DoubleScreenScript : MonoBehaviour {
             nots[0] = alpha.PickRandom();
             nots[1] = alpha.PickRandom();
         }
-        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", nots[0], nots[1], "AEIOU".Contains(nots[0]) ? "an" : "a"));
-        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", nots[0], nots[1], "AEIOU".Contains(nots[0]) ? "an" : "a"));
+        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", nots[0], nots[1], "AEIO".Contains(nots[0]) ? "an" : "a"));
+        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", nots[0], nots[1], "AEIO".Contains(nots[0]) ? "an" : "a"));
         not = alpha.PickRandom();
         char has = bomb.GetSerialNumber().PickRandom();
-        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", not, has, "AEIOU".Contains(not) ? "an" : "a"));
+        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", not, has, "AEIO".Contains(not) ? "an" : "a"));
         not = alpha.PickRandom();
         has = bomb.GetSerialNumber().PickRandom();
-        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", has, not, "AEIOU".Contains(has) ? "an" : "a"));
+        lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", has, not, "AEIO".Contains(has) ? "an" : "a"));
     }
 
     private List<Module> Processjson(string fetched)
