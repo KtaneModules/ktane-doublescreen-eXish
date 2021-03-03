@@ -352,9 +352,17 @@ public class DoubleScreenScript : MonoBehaviour {
         lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", nots[0], nots[1], "AEIO".Contains(nots[0]) ? "an" : "a"));
         lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} or {1}.", nots[0], nots[1], "AEIO".Contains(nots[0]) ? "an" : "a"));
         not = alpha.PickRandom();
+        while (bomb.GetSerialNumber().Contains(not))
+        {
+            not = alpha.PickRandom();
+        }
         char has = bomb.GetSerialNumber().PickRandom();
         lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", not, has, "AEIO".Contains(not) ? "an" : "a"));
         not = alpha.PickRandom();
+        while (bomb.GetSerialNumber().Contains(not))
+        {
+            not = alpha.PickRandom();
+        }
         has = bomb.GetSerialNumber().PickRandom();
         lies.Add(string.Format("The bomb's\nserial number\ncontains {2}\n{0} and {1}.", has, not, "AEIO".Contains(has) ? "an" : "a"));
     }
