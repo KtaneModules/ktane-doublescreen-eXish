@@ -239,7 +239,7 @@ public class DoubleScreenScript : MonoBehaviour {
                 mod = mod.Substring(0, 16) + "\n" + mod.Substring(16, mod.Length - 16);
         }
         lies.Add(string.Format("There is {1}\n{0}\nabsent from this\nbomb.", mod, "AEIOUaeiou".Contains(mod[0]) ? "an" : "a"));
-        if (fetch.error == null && fetch.isDone)
+        if (fetch.error == null && fetch.isDone && modules.Count != 0)
         {
             mod = modules.PickRandom().Name;
             while (bomb.GetModuleNames().Contains(mod))
@@ -373,7 +373,7 @@ public class DoubleScreenScript : MonoBehaviour {
         List<Module> Modules = new List<Module>();
         foreach (var item in Deserialized.KtaneModules)
         {
-            if ((string)item["Type"] != "Widget") Modules.Add(new Module(item));
+            if ((string)item["Type"] != "Widget" && (string)item["Type"] != "Holdable") Modules.Add(new Module(item));
         }
         return Modules;
     }
