@@ -57,7 +57,6 @@ public class DoubleScreenScript : MonoBehaviour {
     }
 
     void Start () {
-        initTime = (int)bomb.GetTime();
         stageCount = UnityEngine.Random.Range(2, 4);
         Debug.LogFormat("[Double Screen #{0}] This module will require {1} presses to solve", moduleId, stageCount);
         texts[0].text = "";
@@ -69,6 +68,7 @@ public class DoubleScreenScript : MonoBehaviour {
     void OnActivate()
     {
         animating = true;
+        initTime = (int)bomb.GetTime();
         GenerateScreens();
         StartCoroutine(ShowText());
     }
